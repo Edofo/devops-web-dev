@@ -1,0 +1,201 @@
+image: node:16-alpine
+
+variables:
+    PUBLIC_URL: /devops-web-development-challenge
+    CYPRESS_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/Cypress'
+
+cache:
+    paths:
+        - node_modules
+        - test
+        - .npm run/
+        - .cache/*
+        - cache/Cypress
+
+stages:
+    - install
+    - fix
+    - verification
+    - build
+    - deploiement
+    - kpi
+
+Install:
+    stage: install
+    script:
+        - npm ci
+    after_script:
+        - echo "Install successful"
+    only:
+        - main
+        - develop
+        - /^issue-.*$/
+    except:
+        - merge_requests
+        - /^stable-branch.*$/
+
+Fix:
+    needs: ['Install']
+    stage: fix
+    before_script:
+        - npm install
+    script:
+        - npm audit fix
+    after_script:
+        - echo "Fix successful"
+    only:
+        - develop
+
+# Eslint:
+#     needs: ['Install']
+#     stage: verification
+#     before_script:
+#         - |
+#             npm ci \
+#             npm install eslint \
+#             eslint-config-airbnb \
+#             eslint-config-prettier \
+#             eslint-plugin-flowtype \
+#             eslint-plugin-import \
+#             eslint-plugin-jsx-a11y \
+#             eslint-plugin-prettier \
+#             eslint-plugin-react
+#     script:
+#         - npx eslint './src/*.{js,jsx,ts,tsx,json}' . --fix
+#     after_script:
+#         - echo "Eslint successful"
+
+Prettier:
+    needs: ['Install']
+    stage: verification
+    before_script:
+        - npm ci
+    script:
+        - prettier --write '.' --config ./.prettierrc
+    after_script:
+        - echo "Prettier successful"
+
+Tests:
+    stage: verification
+    needs: ['Install']
+    before_script:
+        - npm ci
+    script:
+        - npm run test_cra
+    after_script:
+        - echo "Tests successful"
+
+Build:
+    stage: build
+    needs: ['Prettier', 'Tests']
+    before_script:
+        - npm ci
+    script:
+        - npm run build --prod
+        - cp public/index.html public/404.html
+        - mv public _public
+        - mv build public
+        - echo "Build successful"
+    artifacts:
+        name: 'Build - /build'
+        expire_in: 1 week
+        paths:
+            - build
+
+Build-no-maps:
+    stage: build
+    needs: ['Tests']
+    before_script:
+        - npm ci
+    script:
+        - npm run build build-no-map
+        - echo "Build-no-map successful"
+    artifacts:
+        name: 'Build sans les maps - /build'
+        expire_in: 1 week
+        paths:
+            - build
+
+Deploy-Pprod:
+    stage: deploiement
+    needs: ['Build']
+    only:
+        - merge_requests
+        - master
+        - main
+        - branches
+    before_script:
+        - npm ci
+        - npm install netlify-cli -g
+    script:
+        - npx netlify-cli deploy --site NETLIFY_SITE_ID --auth NETLIFY_AUTH_TOKEN
+        - echo "Deploy Pprod successful"
+
+Deploy-Prod:
+    stage: deploiement
+    needs: ['Build']
+    only:
+        - merge_requests
+        - master
+        - main
+        - branches
+    before_script:
+        - npm ci
+        - npm install netlify-cli -g
+    script:
+        - npx netlify-cli deploy --site NETLIFY_SITE_ID --auth NETLIFY_AUTH_TOKEN --prod
+        - echo "Deploy Pprod successful"
+
+ApacheBench:
+    stage: kpi
+    needs: ['Deploy-Pprod', 'Deploy-Prod']
+    before_script:
+        - apk update
+        - apk add apache2-utils
+    script:
+        - ab -n 500 -c 100 -T application/x-www-form-urlencoded -e ./src/data/apachebench/abtesting1_500_100.csv ADRESSE_WEB
+        - ab -n 1000 -c 100 -T application/x-www-form-urlencoded -e ./src/data/apachebench/abtesting1_1000_100.csv ADRESSE_WEB
+        - ab -n 500 -c 300 -T application/x-www-form-urlencoded -e ./src/data/apachebench/abtesting1_500_300.csv ADRESSE_WEB
+        - ab -n 1000 -c 300 -T application/x-www-form-urlencoded -e ./src/data/apachebench/abtesting1_1000_300.csv ADRESSE_WEB
+    artifacts:
+        name: 'ApacheBench après déploiement - csv'
+        when: always
+        paths:
+            - data/apachebench/*.csv
+        expire_in: 1 week
+
+Analyze:
+    stage: kpi
+    needs: ['Deploy-Pprod', 'Deploy-Prod']
+    script:
+        - npm ci && npm run build --prod
+        - npm run source-map-explorer
+        - echo "Analyze successful"
+    artifacts:
+        name: 'Analyze après déploiement - html/json/tsv'
+        when: always
+        paths:
+            - data/analyze/*.html
+            - data/analyze/*.json
+            - data/analyze/*.tsv
+        expire_in: 1 day
+
+Lighthouse:
+    image: cypress/browsers:node14.15.0-chrome86-ff82
+    needs: ['Deploy-Pprod', 'Deploy-Prod']
+    stage: kpi
+    environment:
+        name: production
+    before_script:
+        - npm ci
+        - npm i lighthouse
+    script:
+        - npx lighthouse --chrome-flags='--headless --no-sandbox --window-size=375,812' ADRESSE_WEB --output html --output json --output-path ./src/data/lighthouse/
+        - echo "Lighthouse successful"
+    artifacts:
+        name: 'Lighthouse après déploiement - html/json'
+        when: always
+        paths:
+            - data/lighthouse/*.html
+            - data/lighthouse/*.json
+        expire_in: 1 week

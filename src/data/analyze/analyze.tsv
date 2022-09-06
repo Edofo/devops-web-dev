@@ -1,0 +1,39 @@
+Source	Size
+../node_modules/web-vitals/dist/web-vitals.js	4284
+[unmapped]	291
+[sourceMappingURL]	46
+[no source]	5
+[EOLs]	1
+
+../node_modules/react-dom/cjs/react-dom.production.min.js	129556
+../node_modules/react/cjs/react.production.min.js	6428
+../node_modules/scheduler/cjs/scheduler.production.min.js	3826
+component/random/index.js	956
+../webpack/runtime/jsonp chunk loading	845
+../webpack/runtime/load script	780
+../node_modules/react/cjs/react-jsx-runtime.production.min.js	584
+../node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js	311
+../node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js	285
+../node_modules/react-dom/index.js	244
+../webpack/runtime/make namespace object	176
+reportWebVitals.js	176
+../node_modules/@babel/runtime/helpers/esm/nonIterableRest.js	172
+../webpack/bootstrap	128
+[unmapped]	122
+index.js	115
+../webpack/runtime/ensure chunk	110
+../webpack/runtime/define property getters	107
+../node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js	106
+../node_modules/react-dom/client.js	89
+../webpack/runtime/hasOwnProperty shorthand	79
+App.js	73
+../webpack/runtime/get javascript chunk filename	59
+../node_modules/@babel/runtime/helpers/esm/slicedToArray.js	58
+../node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js	41
+[sourceMappingURL]	41
+../node_modules/react/index.js	38
+../node_modules/react/jsx-runtime.js	36
+../webpack/runtime/get mini-css chunk filename	25
+../node_modules/scheduler/index.js	19
+../webpack/runtime/publicPath	19
+[EOLs]	2

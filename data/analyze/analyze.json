@@ -1,0 +1,135 @@
+{
+    "results": [
+        {
+            "bundleName": "build/static/js/787.9b9418bb.chunk.js",
+            "totalBytes": 4627,
+            "mappedBytes": 4289,
+            "unmappedBytes": 291,
+            "eolBytes": 1,
+            "sourceMapCommentBytes": 46,
+            "files": {
+                "../node_modules/web-vitals/dist/web-vitals.js": {
+                    "size": 4284
+                },
+                "[no source]": {
+                    "size": 5
+                },
+                "[sourceMappingURL]": {
+                    "size": 46
+                },
+                "[unmapped]": {
+                    "size": 291
+                },
+                "[EOLs]": {
+                    "size": 1
+                }
+            }
+        },
+        {
+            "bundleName": "build/static/js/main.483aff58.js",
+            "totalBytes": 145606,
+            "mappedBytes": 145441,
+            "unmappedBytes": 122,
+            "eolBytes": 2,
+            "sourceMapCommentBytes": 41,
+            "files": {
+                "../node_modules/react-dom/cjs/react-dom.production.min.js": {
+                    "size": 129556
+                },
+                "../node_modules/react-dom/client.js": {
+                    "size": 89
+                },
+                "../node_modules/react-dom/index.js": {
+                    "size": 244
+                },
+                "../node_modules/react/cjs/react-jsx-runtime.production.min.js": {
+                    "size": 584
+                },
+                "../node_modules/react/cjs/react.production.min.js": {
+                    "size": 6428
+                },
+                "../node_modules/react/index.js": {
+                    "size": 38
+                },
+                "../node_modules/react/jsx-runtime.js": {
+                    "size": 36
+                },
+                "../node_modules/scheduler/cjs/scheduler.production.min.js": {
+                    "size": 3826
+                },
+                "../node_modules/scheduler/index.js": {
+                    "size": 19
+                },
+                "../webpack/bootstrap": {
+                    "size": 128
+                },
+                "../webpack/runtime/define property getters": {
+                    "size": 107
+                },
+                "../webpack/runtime/ensure chunk": {
+                    "size": 110
+                },
+                "../webpack/runtime/get javascript chunk filename": {
+                    "size": 59
+                },
+                "../webpack/runtime/get mini-css chunk filename": {
+                    "size": 25
+                },
+                "../webpack/runtime/hasOwnProperty shorthand": {
+                    "size": 79
+                },
+                "../webpack/runtime/load script": {
+                    "size": 780
+                },
+                "../webpack/runtime/make namespace object": {
+                    "size": 176
+                },
+                "../webpack/runtime/publicPath": {
+                    "size": 19
+                },
+                "../webpack/runtime/jsonp chunk loading": {
+                    "size": 845
+                },
+                "../node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js": {
+                    "size": 106
+                },
+                "../node_modules/@babel/runtime/helpers/esm/slicedToArray.js": {
+                    "size": 58
+                },
+                "../node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js": {
+                    "size": 41
+                },
+                "../node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js": {
+                    "size": 311
+                },
+                "../node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js": {
+                    "size": 285
+                },
+                "../node_modules/@babel/runtime/helpers/esm/nonIterableRest.js": {
+                    "size": 172
+                },
+                "component/random/index.js": {
+                    "size": 956
+                },
+                "App.js": {
+                    "size": 73
+                },
+                "reportWebVitals.js": {
+                    "size": 176
+                },
+                "index.js": {
+                    "size": 115
+                },
+                "[sourceMappingURL]": {
+                    "size": 41
+                },
+                "[unmapped]": {
+                    "size": 122
+                },
+                "[EOLs]": {
+                    "size": 2
+                }
+            }
+        }
+    ]
+}
